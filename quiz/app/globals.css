@@ -1,16 +1,22 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-cream: #f7efdd;
-  --color-card: #ecdcba;
-  --color-ink: #24406e;
-  --color-ink-soft: #4a6390;
-  --color-accent: #f2803e;
-  --color-accent-deep: #e2622b;
-  --color-redline: #e2543e;
-  --color-cocoa: #33302a;
-  --color-ok: #4a7c59;
-  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --color-paper: #ffffff; /* page + cards, dominant */
+  --color-blush: #fff1f6; /* inputs, unselected options, panels */
+  --color-ink: #1e1533; /* text, outlines, sticker shadows */
+  --color-ink-soft: #5b5070; /* secondary text, counters */
+  --color-pink: #ff4f9a; /* decor, progress fill */
+  --color-pink-deep: #d3166c; /* primary button, selected option (white text, 5.2:1) */
+  --color-pink-press: #b8105c; /* primary hover */
+  --color-pink-soft: #ffb8d6; /* card shadows, focus shadow */
+  --color-mint: #2ed3b7; /* decor, timer dot, success badge */
+  --color-mint-deep: #0b7a6a; /* success text */
+  --color-butter: #ffe14d; /* highlighter, washi tape, stickers */
+  --color-lilac: #a98bff; /* decor only, sparingly */
+  --color-alert: #e11d48; /* timer <=5 s, errors */
+  --font-sans: var(--ff-nunito), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--ff-unbounded), ui-sans-serif, system-ui, sans-serif;
+  --font-hangul: var(--ff-jua), sans-serif;
 }
 
 html {
@@ -18,24 +24,45 @@ html {
 }
 
 body {
-  background-color: #f7efdd;
-  /* dotted background, staggered grid like the reference slide */
-  background-image:
-    radial-gradient(rgba(206, 160, 96, 0.5) 1.2px, transparent 1.4px),
-    radial-gradient(rgba(206, 160, 96, 0.28) 1.2px, transparent 1.4px);
-  background-size: 22px 22px;
-  background-position: 0 0, 11px 11px;
-  color: var(--color-cocoa);
-  font-family: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  background-color: #ffffff;
+  background-image: radial-gradient(#ffd6e7 1.2px, transparent 1.6px); /* sparse pink dots */
+  background-size: 26px 26px;
+  color: var(--color-ink);
+  font-family: var(--ff-nunito), ui-sans-serif, system-ui, sans-serif;
 }
 
-/* red wavy underline used on headings, like in the reference */
-.wavy-underline {
-  text-decoration-line: underline;
-  text-decoration-style: wavy;
-  text-decoration-color: var(--color-redline);
-  text-decoration-thickness: 2.5px;
-  text-underline-offset: 7px;
+/* yellow highlighter behind a word */
+.hl {
+  background: linear-gradient(
+    transparent 58%,
+    var(--color-butter) 58%,
+    var(--color-butter) 92%,
+    transparent 92%
+  );
+  padding: 0 4px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* gentle float for stickers */
+@keyframes bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -6px;
+  }
+}
+.bob {
+  animation: bob 3.4s ease-in-out infinite;
+}
+.bob2 {
+  animation: bob 4.1s ease-in-out infinite reverse;
+}
+
+.sticker-shadow {
+  filter: drop-shadow(3px 3px 0 var(--color-ink));
 }
 
 @keyframes pop-in {
@@ -69,19 +96,6 @@ body {
   animation: pulse-urgent 1s ease-in-out infinite;
 }
 
-@keyframes float-squiggle {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(6px);
-  }
-}
-.float-squiggle {
-  animation: float-squiggle 2.6s ease-in-out infinite;
-}
-
 /* ---------- /results page ---------- */
 
 /* falling confetti behind the results page */
@@ -105,7 +119,7 @@ body {
   opacity: 0;
 }
 
-/* 3D flip used by the MOCNE KONKRETY reveal cards */
+/* 3D flip used by the reveal cards */
 .flip-scene {
   perspective: 1000px;
 }
@@ -140,12 +154,7 @@ body {
   bottom: -10%;
   left: 0;
   width: 34%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(247, 239, 221, 0.65),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
   animation: shimmer-sweep 3.4s ease-in-out infinite;
   pointer-events: none;
 }
@@ -163,4 +172,16 @@ body {
 .crown-bob {
   animation: crown-bob 2.2s ease-in-out infinite;
   display: inline-block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bob,
+  .bob2,
+  .pulse-urgent,
+  .pop-in,
+  .crown-bob,
+  .shimmer::after,
+  .confetti-piece {
+    animation: none !important;
+  }
 }

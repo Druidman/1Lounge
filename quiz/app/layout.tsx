@@ -1,11 +1,25 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins } from "next/font/google";
+import { Jua, Nunito, Unbounded } from "next/font/google";
 import "./globals.css";
 
-const poppins = Poppins({
-  variable: "--font-poppins",
+const display = Unbounded({
+  variable: "--ff-unbounded",
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["600", "700", "800"],
+});
+
+const sans = Nunito({
+  variable: "--ff-nunito",
+  subsets: ["latin", "latin-ext"],
+  weight: ["500", "600", "700", "800"],
+});
+
+// Hangul stickers only. Jua has NO Polish diacritics – never use it for Polish text.
+const hangul = Jua({
+  variable: "--ff-jua",
+  weight: "400",
+  subsets: ["latin"],
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -14,14 +28,17 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f7efdd",
+  themeColor: "#ffffff",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="pl" className={`${poppins.variable} h-full antialiased`}>
+    <html
+      lang="pl"
+      className={`${display.variable} ${sans.variable} ${hangul.variable} h-full antialiased`}
+    >
       <body className="min-h-full">{children}</body>
     </html>
   );

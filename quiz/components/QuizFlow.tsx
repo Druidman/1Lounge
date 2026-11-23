@@ -114,7 +114,7 @@ export function QuizFlow() {
         {error && (
           <div
             role="alert"
-            className="mb-4 rounded-2xl border-2 border-redline/60 bg-card px-4 py-3 text-sm font-medium text-cocoa"
+            className="relative z-10 mb-4 rounded-[18px_14px_20px_12px] border-[2.5px] border-alert bg-paper px-4 py-3 text-sm font-bold text-ink shadow-[4px_4px_0_var(--color-pink-soft)]"
           >
             {error}
           </div>

@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { DbQuestion, Selection, Selections } from "@/lib/types";
 import { isAnswered } from "@/lib/types";
-import { Connector, OrangeDot } from "@/components/decor";
+import { HangulSticker, Heart, Ribbon, ShapeMarker, Sparkle, Tape } from "@/components/decor";
 
 /** Fallback when a question row somehow lacks a usable duration (seconds). */
 const FALLBACK_DURATION_SEC = 30;
@@ -150,137 +150,147 @@ export function QuizCard({
     return () => clearInterval(interval);
   }, [durationSec, index, timerGen, tryAdvance, trySubmit]);
 
+  const progressPct = ((index + (answeredForQuestion ? 1 : 0)) / questions.length) * 100;
+
   return (
     <section className="relative">
-      {/* progress line above the card, like the blue line feeding the orange dot */}
-      <div className="mb-4 flex items-center gap-3">
-        <OrangeDot className="h-4 w-4 shrink-0" />
-        <div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-ink/15">
-          <div
-            className="h-full rounded-full bg-ink transition-all duration-300"
-            style={{ width: `${((index + (answeredForQuestion ? 1 : 0)) / questions.length) * 100}%` }}
-          />
-        </div>
-        <span className="text-sm font-semibold tabular-nums text-ink-soft">
-          {index + 1}/{questions.length}
-        </span>
-      </div>
+      {/* stickers on the screen edges, under the content */}
+      <HangulSticker
+        text="정답?"
+        bg="bg-mint"
+        className="bob fixed right-4 top-5 z-0 rotate-[7deg] sm:right-8 sm:top-8"
+      />
+      <Heart className="bob2 fixed left-4 top-5 z-0 h-11 w-11 rotate-[-12deg] sm:left-8 sm:top-8" />
+      <Ribbon
+        color="var(--color-lilac)"
+        className="fixed bottom-6 left-3 z-0 h-7 w-24 rotate-[-4deg] max-[359px]:hidden sm:left-8"
+      />
 
-      <div className="rounded-3xl border-2 border-ink/15 bg-card p-5 shadow-[6px_6px_0_rgba(36,64,110,0.12)] sm:p-7">
-        <div className="mb-1 flex items-center justify-between gap-3">
-          <h2 className="text-lg font-bold text-accent-deep sm:text-xl">
-            Pytanie {index + 1}
-          </h2>
-          <span
-            role="timer"
-            aria-label={`Pozostały czas: ${secondsLeft} sekund`}
-            className={`flex shrink-0 items-center gap-1.5 rounded-full border-2 px-3 py-1 text-sm font-bold tabular-nums transition-colors ${
-              urgent
-                ? "pulse-urgent border-redline bg-redline/10 text-redline"
-                : "border-ink/25 bg-cream text-ink-soft"
-            }`}
-          >
-            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden>
-              <circle cx="12" cy="13" r="8" stroke="currentColor" strokeWidth="2.5" />
-              <path d="M12 13V8.5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-              <path d="M12 13l3 3" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-            </svg>
-            {secondsLeft}s
+      <div className="relative z-10">
+        {/* progress row */}
+        <div className="mb-4 flex items-center gap-3">
+          <Sparkle className="h-6 w-6 shrink-0" />
+          <div className="relative h-3.5 flex-1 overflow-hidden rounded-full border-[2.5px] border-ink bg-paper">
+            <div
+              className={`h-full bg-pink transition-all duration-300 ${
+                progressPct > 0 && progressPct < 100 ? "border-r-[2.5px] border-ink" : ""
+              }`}
+              style={{ width: `${progressPct}%` }}
+            />
+          </div>
+          <span className="text-sm font-extrabold tabular-nums text-ink">
+            {index + 1}/{questions.length}
           </span>
         </div>
-        <p className="mb-5 text-xl font-semibold leading-snug text-ink sm:text-2xl">
-          {question.question}
-        </p>
 
-        {open ? (
-          <div>
-            <label htmlFor={`answer-${question.id}`} className="sr-only">
-              Twoja odpowiedź
-            </label>
-            <textarea
-              id={`answer-${question.id}`}
-              value={customText}
-              onChange={(e) => chooseCustom(e.target.value)}
-              disabled={busy}
-              rows={4}
-              maxLength={CUSTOM_MAX_LEN}
-              placeholder="Wpisz swoją odpowiedź…"
-              className="w-full resize-none rounded-2xl border-2 border-ink/25 bg-cream px-4 py-3.5 text-base font-medium text-cocoa transition placeholder:text-cocoa/40 focus:border-accent focus:shadow-[3px_3px_0_rgba(242,128,62,0.35)] focus:outline-none disabled:opacity-50 sm:text-lg"
-            />
-            <div className="mt-1 text-right text-xs tabular-nums text-cocoa/50">
-              {customText.length}/{CUSTOM_MAX_LEN}
-            </div>
+        <div className="relative rounded-[28px_20px_30px_18px] border-[2.5px] border-ink bg-paper p-5 shadow-[6px_6px_0_var(--color-pink-soft)] sm:p-7">
+          <Tape className="-top-3 left-6 rotate-[-6deg]" />
+
+          <div className="mb-2 flex items-center justify-between gap-3">
+            <h2 className="font-display text-lg font-extrabold tracking-[-0.02em] text-pink-deep">
+              Pytanie {index + 1}
+            </h2>
+            <span
+              role="timer"
+              aria-label={`Pozostały czas: ${secondsLeft} sekund`}
+              className={`flex shrink-0 items-center gap-1.5 rounded-full border-[2.5px] border-ink px-3 py-1 text-sm font-extrabold tabular-nums transition-colors ${
+                urgent
+                  ? "pulse-urgent bg-alert text-white shadow-[3px_3px_0_var(--color-ink)]"
+                  : "bg-paper text-ink"
+              }`}
+            >
+              <span
+                aria-hidden
+                className={`h-2.5 w-2.5 rounded-full border-2 border-ink ${urgent ? "bg-butter" : "bg-mint"}`}
+              />
+              {secondsLeft}s
+            </span>
           </div>
-        ) : (
-          <div className="grid gap-2.5">
-            {question.options!.map((option, i) => {
-              const selected =
-                selectionForQuestion?.kind === "option" && selectionForQuestion.optionId === option.id;
-              return (
-                <button
-                  key={option.id}
-                  type="button"
-                  disabled={busy}
-                  onClick={() => choose(option.id)}
-                  aria-pressed={selected}
-                  className={`flex w-full items-start gap-3 rounded-2xl border-2 px-4 py-3.5 text-left text-base font-medium transition sm:text-lg ${
-                    selected
-                      ? "border-ink bg-accent text-white shadow-[3px_3px_0_rgba(36,64,110,0.25)]"
-                      : "border-ink/25 bg-cream text-cocoa enabled:hover:-translate-y-0.5 enabled:hover:border-accent enabled:hover:shadow-[3px_3px_0_rgba(242,128,62,0.35)] active:translate-y-0"
-                  }`}
-                >
-                  <span
-                    className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 text-xs font-bold ${
-                      selected ? "border-white bg-white text-accent" : "border-ink/40 text-ink-soft"
+          <p className="mb-5 text-xl font-extrabold leading-snug text-ink sm:text-2xl">
+            {question.question}
+          </p>
+
+          {open ? (
+            <div>
+              <label htmlFor={`answer-${question.id}`} className="sr-only">
+                Twoja odpowiedź
+              </label>
+              <textarea
+                id={`answer-${question.id}`}
+                value={customText}
+                onChange={(e) => chooseCustom(e.target.value)}
+                disabled={busy}
+                rows={4}
+                maxLength={CUSTOM_MAX_LEN}
+                placeholder="Wpisz swoją odpowiedź…"
+                className="w-full resize-none rounded-[16px_12px_18px_12px] border-[2.5px] border-ink/20 bg-blush px-4 py-3 text-base font-bold text-ink transition placeholder:text-ink/45 focus:border-pink-deep focus:bg-paper focus:shadow-[4px_4px_0_var(--color-pink-soft)] focus:outline-none disabled:opacity-50 sm:text-lg"
+              />
+              <div className="mt-1 text-right text-xs font-bold tabular-nums text-ink-soft">
+                {customText.length}/{CUSTOM_MAX_LEN}
+              </div>
+            </div>
+          ) : (
+            <div className="grid gap-2.5">
+              {question.options!.map((option, i) => {
+                const selected =
+                  selectionForQuestion?.kind === "option" && selectionForQuestion.optionId === option.id;
+                return (
+                  <button
+                    key={option.id}
+                    type="button"
+                    disabled={busy}
+                    onClick={() => choose(option.id)}
+                    aria-pressed={selected}
+                    className={`flex w-full items-start gap-3 rounded-[18px_14px_20px_12px] border-[2.5px] px-4 py-3 text-left text-base font-bold transition sm:text-lg ${
+                      selected
+                        ? "border-ink bg-pink-deep text-white shadow-[4px_4px_0_var(--color-ink)]"
+                        : "border-ink/20 bg-blush text-ink enabled:hover:-translate-y-0.5 enabled:hover:border-ink enabled:hover:bg-paper enabled:hover:shadow-[4px_4px_0_var(--color-pink-soft)] active:translate-y-0"
                     }`}
                   >
-                    {String.fromCharCode(65 + i)}
-                  </span>
-                  <span>{option.option}</span>
-                </button>
-              );
-            })}
-          </div>
-        )}
+                    <ShapeMarker index={i} selected={selected} />
+                    <span className="pt-0.5">{option.option}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
+        <div className="mt-5 flex items-center justify-between gap-3">
+          <span className="text-sm font-bold text-ink-soft">
+            {answeredCount}/{questions.length} odpowiedzi
+          </span>
+
+          {isLast ? (
+            <button
+              type="button"
+              disabled={answeredCount === 0 || busy}
+              onClick={trySubmit}
+              className="rounded-[12px_18px_14px_18px] border-[2.5px] border-ink bg-ink px-5 py-3 text-base font-extrabold text-white shadow-[4px_4px_0_var(--color-pink)] transition enabled:hover:bg-[#3a2e57] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0_var(--color-pink)] disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none sm:text-lg"
+            >
+              {busy ? "Wysyłam…" : "Wyślij odpowiedzi"}
+            </button>
+          ) : (
+            <button
+              type="button"
+              disabled={!answeredForQuestion || busy}
+              onClick={tryAdvance}
+              className="flex items-center gap-2 rounded-[18px_12px_18px_14px] border-[2.5px] border-ink bg-pink-deep px-5 py-3 text-base font-extrabold text-white shadow-[4px_4px_0_var(--color-ink)] transition enabled:hover:bg-pink-press active:translate-x-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0_var(--color-ink)] disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none sm:text-lg"
+            >
+              Dalej
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden>
+                <path
+                  d="M5 12h13M13 6l6 6-6 6"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          )}
+        </div>
       </div>
-
-      <div className="mt-5 flex items-center justify-between gap-3">
-        <span className="text-sm font-medium text-cocoa/60">
-          {answeredCount}/{questions.length} odpowiedzi
-        </span>
-
-        {isLast ? (
-          <button
-            type="button"
-            disabled={answeredCount === 0 || busy}
-            onClick={trySubmit}
-            className="rounded-2xl border-2 border-ink bg-ink px-5 py-3 text-base font-bold text-cream transition active:translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40 enabled:hover:bg-ink-soft sm:text-lg"
-          >
-            {busy ? "Wysyłam…" : "Wyślij odpowiedzi"}
-          </button>
-        ) : (
-          <button
-            type="button"
-            disabled={!answeredForQuestion || busy}
-            onClick={tryAdvance}
-            className="flex items-center gap-2 rounded-2xl border-2 border-ink bg-accent px-5 py-3 text-base font-bold text-white transition active:translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40 enabled:hover:bg-accent-deep sm:text-lg"
-          >
-            Dalej
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden>
-              <path
-                d="M5 12h13M13 6l6 6-6 6"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        )}
-      </div>
-
-      {/* small hand-drawn connector under the card, decorative */}
-      <Connector className="left-1/2 top-full hidden h-0.5 w-16 -translate-x-1/2 sm:block" />
     </section>
   );
 }
