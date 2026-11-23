@@ -1,26 +1,126 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ---------- 1lounge platform (route group app/(lounge)) ----------
+ * Prefixed tokens so they never collide with future per-quiz themes.
+ * The lounge pages read nothing from `body`; the (lounge) layout wrapper
+ * (.lounge-paper) owns background, text color and font.
+ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-lounge-cream: #f7efdd; /* page background */
+  --color-lounge-card: #ecdcba; /* cards */
+  --color-lounge-ink: #24406e; /* headings, primary button, links */
+  --color-lounge-ink-soft: #4a6390; /* ink hover */
+  --color-lounge-accent: #f2803e; /* orange dots, accent button bg */
+  --color-lounge-accent-deep: #e2622b; /* accent button hover */
+  --color-lounge-orange-text: #b8461a; /* orange TEXT – passes contrast on cream & card */
+  --color-lounge-on-accent: #1d3459; /* text on orange buttons (white fails contrast) */
+  --color-lounge-redline: #e2543e; /* wavy underline */
+  --color-lounge-body: #33302a; /* body text */
+  --color-lounge-body-2: #4a4438; /* lead paragraph */
+  --color-lounge-muted: #5a5348; /* secondary text, footer, meta */
+  --font-lounge: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+.lounge-paper {
+  background-color: #f7efdd;
+  background-image:
+    radial-gradient(rgba(206, 160, 96, 0.5) 1.2px, transparent 1.4px),
+    radial-gradient(rgba(206, 160, 96, 0.28) 1.2px, transparent 1.4px);
+  background-size: 22px 22px;
+  background-position:
+    0 0,
+    11px 11px;
+  color: #33302a;
+  font-family: var(--font-lounge);
+}
+
+.lounge-wavy {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: #e2543e;
+  text-decoration-thickness: 2.5px;
+  text-underline-offset: 7px;
+  text-decoration-skip-ink: none;
+}
+
+@keyframes lounge-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+.lounge-float {
+  animation: lounge-float 2.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lounge-float {
+    animation: none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ---------- K-pop "Seoul Pop" theme (quiz cards, mirrors quiz/ app) ----------
+ * Prefixed `kpop-` so it never collides with the lounge tokens. Fonts are
+ * loaded in components/kpop/fonts.ts and applied on the card wrapper.
+ */
+@theme inline {
+  --color-kpop-paper: #ffffff;
+  --color-kpop-blush: #fff1f6;
+  --color-kpop-ink: #1e1533;
+  --color-kpop-ink-soft: #5b5070;
+  --color-kpop-pink: #ff4f9a;
+  --color-kpop-pink-deep: #d3166c;
+  --color-kpop-pink-press: #b8105c;
+  --color-kpop-pink-soft: #ffb8d6;
+  --color-kpop-mint: #2ed3b7;
+  --color-kpop-butter: #ffe14d;
+  --color-kpop-lilac: #a98bff;
+  --font-kpop-sans: var(--ff-kpop-nunito), ui-sans-serif, system-ui, sans-serif;
+  --font-kpop-display: var(--ff-kpop-unbounded), ui-sans-serif, system-ui, sans-serif;
+  --font-kpop-hangul: var(--ff-kpop-jua), sans-serif;
+}
+
+/* yellow highlighter behind a word */
+.kpop-hl {
+  background: linear-gradient(
+    transparent 58%,
+    var(--color-kpop-butter) 58%,
+    var(--color-kpop-butter) 92%,
+    transparent 92%
+  );
+  padding: 0 4px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.kpop-sticker-shadow {
+  filter: drop-shadow(3px 3px 0 var(--color-kpop-ink));
+}
+
+@keyframes kpop-bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -6px;
+  }
+}
+.kpop-bob {
+  animation: kpop-bob 3.4s ease-in-out infinite;
+}
+.kpop-bob2 {
+  animation: kpop-bob 4.1s ease-in-out infinite reverse;
+}
+@media (prefers-reduced-motion: reduce) {
+  .kpop-bob,
+  .kpop-bob2 {
+    animation: none !important;
+  }
 }

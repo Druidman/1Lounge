@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Quizy 1LO – strona główna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f7efdd}
+a{color:#24406e}a:hover{color:#4a6390}
+.wavy{text-decoration-line:underline;text-decoration-style:wavy;text-decoration-color:#e2543e;text-decoration-thickness:2.5px;text-underline-offset:7px;text-decoration-skip-ink:none}
+.btn-ink:hover{background:#4a6390 !important;border-color:#4a6390 !important}
+.btn-ghost:hover{background:#f7efdd !important}
+.btn-accent:hover{background:#e2622b !important}
+.mail-link:hover{border-color:#f2803e !important;background:#ffffff !important}
+.btn-ink:active,.btn-ghost:active,.btn-accent:active{transform:translateY(2px)}
+@keyframes float-squiggle{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.float-squiggle{animation:float-squiggle 2.6s ease-in-out infinite}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div style="min-height: 100vh; box-sizing: border-box; padding: 0 24px 56px; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; color: #33302a; background-color: #f7efdd; background-image: radial-gradient(rgba(206, 160, 96, 0.5) 1.2px, transparent 1.4px), radial-gradient(rgba(206, 160, 96, 0.28) 1.2px, transparent 1.4px); background-size: 22px 22px; background-position: 0 0, 11px 11px">
+
+  <header style="max-width: 1120px; margin: 0 auto; padding: 24px 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+    <div style="display: flex; align-items: center; gap: 12px">
+      <span aria-hidden="true" style="width: 22px; height: 22px; border-radius: 50%; background: #f2803e; flex-shrink: 0"></span>
+      <span style="font-size: 22px; font-weight: 800; color: #24406e; letter-spacing: -0.01em">Quizy 1LO</span>
+    </div>
+    <a href="logowanie.html" class="btn-ink" style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; box-sizing: border-box; padding: 0 20px; border-radius: 16px; border: 2px solid #24406e; background: #24406e; color: #f7efdd; font-size: 16px; font-weight: 700; text-decoration: none; box-shadow: 3px 3px 0 rgba(36, 64, 110, 0.18); transition: background 0.15s">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg>
+      Zaloguj się
+    </a>
+  </header>
+
+  <section style="max-width: 1120px; margin: 0 auto; padding-top: 40px">
+    <div aria-hidden="true" style="display: flex; align-items: center; margin-bottom: 28px">
+      <span style="height: 4px; width: 96px; background: #24406e; border-radius: 4px"></span>
+      <span style="width: 40px; height: 40px; border-radius: 50%; background: #f2803e; box-shadow: 0 0 0 4px #f7efdd"></span>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 40px 56px">
+      <div style="flex: 1 1 520px; min-width: 0">
+        <p style="margin: 0; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #b8461a">1LO w Gnieźnie</p>
+        <h1 style="margin: 12px 0 24px; font-size: clamp(44px, 6vw, 72px); line-height: 1.08; font-weight: 800; letter-spacing: -0.02em; color: #24406e">Szkolne <span class="wavy">quizy</span></h1>
+        <p style="margin: 0; max-width: 560px; font-size: 20px; line-height: 1.6; font-weight: 500; color: #4a4438">Platforma do tworzenia trwałych i customowych quizów na użytek uczniów 1LO w Gnieźnie.</p>
+      </div>
+
+      <div style="flex: 1 1 360px; max-width: 460px; min-width: 0; position: relative; padding-top: 72px">
+        <svg class="float-squiggle" viewBox="0 0 48 96" fill="none" aria-hidden="true" style="position: absolute; top: -12px; left: 28px; width: 40px; height: 80px; color: #24406e">
+          <path d="M25 6C11 18 39 30 25 44C13 55 36 66 25 82" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path>
+          <path d="M13 70L25 86L37 69" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <div style="background: #ecdcba; border: 2px solid rgba(36, 64, 110, 0.15); border-radius: 24px; padding: 28px; box-shadow: 6px 6px 0 rgba(36, 64, 110, 0.12)">
+          <h2 style="margin: 0 0 8px; font-size: 24px; line-height: 1.3; font-weight: 700; color: #b8461a">Chcesz stworzyć <span class="wavy">quiz</span>?</h2>
+          <p style="margin: 0 0 18px; font-size: 16px; line-height: 1.55; color: #4a4438">Napisz wiadomość na adres:</p>
+          <a href="mailto:kowalski.mateusz@1lo.gniezno.pl" class="mail-link" style="display: flex; align-items: center; gap: 12px; min-height: 52px; box-sizing: border-box; padding: 12px 16px; border-radius: 16px; border: 2px solid rgba(36, 64, 110, 0.25); background: #f7efdd; color: #24406e; font-size: 16px; font-weight: 700; text-decoration: none; word-break: break-all; transition: background 0.15s, border-color 0.15s">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M4 7l8 6 8-6"></path></svg>
+            kowalski.mateusz@1lo.gniezno.pl
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="quizy" style="max-width: 1120px; margin: 96px auto 0">
+    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; margin-bottom: 28px">
+      <h2 style="margin: 0; display: flex; align-items: center; gap: 14px; font-size: 36px; line-height: 1.25; font-weight: 800; letter-spacing: -0.01em; color: #24406e">
+        <span aria-hidden="true" style="width: 18px; height: 18px; border-radius: 50%; background: #f2803e; flex-shrink: 0"></span>
+        <span>Dostępne <span class="wavy">quizy</span></span>
+      </h2>
+      <span style="padding: 6px 14px; border-radius: 999px; border: 2px solid rgba(36, 64, 110, 0.2); background: #f7efdd; font-size: 14px; font-weight: 700; color: #24406e">1 quiz</span>
+    </div>
+
+    <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 20px">
+      <!-- PRZYKŁADOWY wiersz (placeholdery). Jeden <li> na quiz; dane z lib/catalog.ts (QUIZZES). Pusty stan: patrz spec. -->
+        <li style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 32px; padding: 24px 28px; background: #ecdcba; border: 2px solid rgba(36, 64, 110, 0.15); border-radius: 24px; box-shadow: 6px 6px 0 rgba(36, 64, 110, 0.12)">
+          <div style="flex: 1 1 420px; min-width: 0">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 10px">
+              <span style="padding: 3px 12px; border-radius: 999px; border: 2px solid rgba(36, 64, 110, 0.2); background: #f7efdd; font-size: 13px; font-weight: 700; color: #24406e">[Przedmiot]</span>
+              <span style="font-size: 13px; font-weight: 500; color: #5a5348">1lounge.xyz/quizy/[slug]</span>
+            </div>
+            <h3 style="margin: 0 0 6px; font-size: 26px; line-height: 1.25; font-weight: 700; color: #b8461a">[Tytuł quizu]</h3>
+            <p style="margin: 0 0 8px; font-size: 17px; line-height: 1.5; color: #33302a">[Krótki opis tematu quizu]</p>
+            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #5a5348">[10 pytań · Uważaj na czas]</p>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px">
+            <a href="#" class="btn-ghost" style="display: inline-flex; align-items: center; min-height: 48px; box-sizing: border-box; padding: 0 20px; border-radius: 16px; border: 2px solid #24406e; background: transparent; color: #24406e; font-size: 16px; font-weight: 700; text-decoration: none; transition: background 0.15s">Wyniki</a>
+            <a href="#" class="btn-accent" style="display: inline-flex; align-items: center; gap: 8px; min-height: 48px; box-sizing: border-box; padding: 0 22px; border-radius: 16px; border: 2px solid #24406e; background: #f2803e; color: #1d3459; font-size: 16px; font-weight: 700; text-decoration: none; box-shadow: 3px 3px 0 rgba(36, 64, 110, 0.18); transition: background 0.15s">
+              Rozwiąż quiz
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            </a>
+          </div>
+        </li>
+    </ul>
+  </section>
+
+  <footer style="max-width: 1120px; margin: 96px auto 0; padding-top: 24px; border-top: 2px dashed rgba(36, 64, 110, 0.22); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-size: 14px; color: #5a5348">
+    <span>Quizy 1LO · I Liceum Ogólnokształcące w Gnieźnie</span>
+    <span>Kontakt: <a href="mailto:kowalski.mateusz@1lo.gniezno.pl" style="font-weight: 600">kowalski.mateusz@1lo.gniezno.pl</a></span>
+  </footer>
+</div>
+</body>
+</html>
