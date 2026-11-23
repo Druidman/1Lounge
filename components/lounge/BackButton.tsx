@@ -3,30 +3,29 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { MouseEvent } from "react";
-
-/** Only same-site paths ("/quizy"), never "//evil.com" or "https://…". */
-function safePath(value: string | null): string | null {
-  return value && value.startsWith("/") && !value.startsWith("//") ? value : null;
-}
+import { isExternal, redirectFromQuery } from "@/lib/redirect";
 
 /**
  * "Powrót": returns to the page the user came from.
- * Links into a page with a back button pass `?from=<pathname>` (soft
- * navigations don't update document.referrer, so we can't rely on it).
- * - came in-app (from set, history available) → history back (keeps scroll)
- * - opened directly with ?from (new tab) → navigate to `from`
- * - no `from` → navigate to `fallbackHref`
+ * Links into a page with a back button pass `?from=<pathname>` (1lounge) or
+ * `?next=<absolute url>` (sibling apps like koreaQuiz); soft navigations
+ * don't update document.referrer, so we can't rely on it.
+ * - origin known + history available → history back (keeps scroll)
+ * - opened directly (new tab) → navigate to that target
+ * - nothing known → navigate to `fallbackHref`
  */
 export function BackButton({ fallbackHref = "/" }: { fallbackHref?: string }) {
   const router = useRouter();
 
   function onClick(e: MouseEvent<HTMLAnchorElement>) {
-    const from = safePath(new URLSearchParams(window.location.search).get("from"));
+    const target = redirectFromQuery();
     e.preventDefault();
-    if (from && window.history.length > 1) {
-      router.back();
+    if (target && window.history.length > 1) {
+      window.history.back();
+    } else if (target && isExternal(target)) {
+      window.location.assign(target);
     } else {
-      router.push(from ?? fallbackHref);
+      router.push(target ?? fallbackHref);
     }
   }
 

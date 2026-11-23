@@ -31,7 +31,7 @@ export const APPS: AppEntry[] = [
   {
     title: "Quizy",
     desc: "Trwałe i customowe quizy tworzone na użytek uczniów 1LO.",
-    path: "1lounge.xyz/quizy",
+    path: process.env.NEXT_PUBLIC_BASE_LOUNGE_DOMAIN + "/quizy",
     href: "/quizy",
     icon: "quiz",
   },

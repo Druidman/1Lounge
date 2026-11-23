@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getSupabase } from "@/lib/supabase";
+import { isExternal, takeAfterLogin } from "@/lib/redirect";
 
-/** Where to send the user after a successful sign-in. */
+/** Default target after sign-in when /login had no `?next=` / `?from=`. */
 const AFTER_LOGIN = "/";
 
 /**
@@ -38,7 +39,14 @@ export default function AuthCallbackPage() {
 
     finish()
       .then(() => {
-        if (!cancelled) router.replace(AFTER_LOGIN);
+        if (cancelled) return;
+        const target = takeAfterLogin() ?? AFTER_LOGIN;
+        if (isExternal(target)) {
+          // Sibling app (e.g. koreaQuiz) – full navigation to another origin.
+          window.location.replace(target);
+        } else {
+          router.replace(target);
+        }
       })
       .catch((e: unknown) => {
         if (!cancelled) {

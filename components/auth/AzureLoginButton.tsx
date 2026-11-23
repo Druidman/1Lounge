@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { getSupabase } from "@/lib/supabase";
+import { redirectFromQuery, rememberAfterLogin } from "@/lib/redirect";
 
 function MicrosoftIcon() {
   return (
@@ -23,6 +24,8 @@ export function AzureLoginButton() {
     setPending(true);
     setError(null);
     try {
+      // Where to land after /callback (e.g. back in koreaQuiz).
+      rememberAfterLogin(redirectFromQuery());
       const { error } = await getSupabase().auth.signInWithOAuth({
         provider: "azure",
         options: {
