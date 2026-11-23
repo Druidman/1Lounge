@@ -1,4 +1,5 @@
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { createBrowserClient } from "@supabase/ssr";
+import { SupabaseClient } from "@supabase/supabase-js"
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabasePublishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
@@ -16,7 +17,7 @@ export function getSupabase(): SupabaseClient {
     );
   }
   if (!browserClient) {
-    browserClient = createClient(supabaseUrl, supabasePublishableKey, {
+    browserClient = createBrowserClient(supabaseUrl, supabasePublishableKey, {
       auth: {
         persistSession: true,
         autoRefreshToken: true,
@@ -25,6 +26,9 @@ export function getSupabase(): SupabaseClient {
         flowType: "pkce",
         detectSessionInUrl: true,
       },
+      cookieOptions: {
+        domain: process.env.NEXT_PUBLIC_COOKIE_DOMAIN
+      }
     });
   }
   return browserClient;

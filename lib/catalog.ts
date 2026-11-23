@@ -42,11 +42,11 @@ export const APPS: AppEntry[] = [
 //   domain: "1lounge.xyz/quizy/<slug>", href: "/quizy/<slug>", resultsHref: "/quizy/<slug>/results" }
 export const QUIZZES: QuizEntry[] = [
   {
-    title: "Skibidi quiz",
-    desc: "Wpisz nick i odpowiadaj na pytania, zanim skończy się czas.",
+    title: "Koreański quiz",
+    desc: "Zaloguj się i odpowiadaj na pytania, zanim skończy się czas.",
     meta: "10 pytań · Uważaj na czas · nie da się wrócić do poprzednich",
-    domain: "korea.1lounge.xyz",
-    href: "https://korea.1lounge.xyz",
+    domain: "korea." + process.env.NEXT_PUBLIC_BASE_DOMAIN,
+    href: process.env.NEXT_PUBLIC_BASE_DOMAIN_HTTP + "://korea." + process.env.NEXT_PUBLIC_BASE_DOMAIN,
     theme: "kpop",
   },
 ];
