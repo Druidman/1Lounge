@@ -45,8 +45,8 @@ export const QUIZZES: QuizEntry[] = [
     title: "Koreański quiz",
     desc: "Zaloguj się i odpowiadaj na pytania, zanim skończy się czas.",
     meta: "10 pytań · Uważaj na czas · nie da się wrócić do poprzednich",
-    domain: "korea." + process.env.NEXT_PUBLIC_BASE_DOMAIN,
-    href: process.env.NEXT_PUBLIC_BASE_DOMAIN_HTTP + "://korea." + process.env.NEXT_PUBLIC_BASE_DOMAIN,
+    domain: process.env.NEXT_PUBLIC_KOREA_QUIZ_DOMAIN ?? "",
+    href: process.env.NEXT_PUBLIC_KOREA_QUIZ_HREF ?? "",
     theme: "kpop",
   },
 ];
