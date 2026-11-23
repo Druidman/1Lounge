@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { CONTACT_EMAIL } from "@/lib/catalog";
 import { OrangeDot, SquigglyArrow } from "@/components/lounge/decor";
+import { AuthStatus } from "@/components/auth/AuthStatus";
 
 /* ---------- icons (verbatim from designs/base/reference) ---------- */
 
@@ -80,7 +81,16 @@ export function Container({ children, className = "" }: { children: ReactNode; c
   return <div className={`mx-auto w-full max-w-[1120px] ${className}`}>{children}</div>;
 }
 
-export function LoungeHeader({ brand, brandHref }: { brand: string; brandHref?: string }) {
+export function LoungeHeader({
+  brand,
+  brandHref,
+  right,
+}: {
+  brand: string;
+  brandHref?: string;
+  /** Right-side slot; defaults to the login status / "Zaloguj się" button. */
+  right?: ReactNode;
+}) {
   const brandInner = (
     <>
       <OrangeDot className="h-[22px] w-[22px]" />
@@ -97,6 +107,7 @@ export function LoungeHeader({ brand, brandHref }: { brand: string; brandHref?: 
         ) : (
           <div className="flex items-center gap-3">{brandInner}</div>
         )}
+        {right ?? <AuthStatus />}
       </header>
     </Container>
   );

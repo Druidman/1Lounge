@@ -47,6 +47,32 @@ html {
   text-decoration-skip-ink: none;
 }
 
+/* Shiny sweep across a button (used by the header "Zaloguj się"). */
+@keyframes lounge-shine {
+  0%,
+  60% {
+    transform: translateX(-120%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(220%) skewX(-20deg);
+  }
+}
+.lounge-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 45%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  animation: lounge-shine 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lounge-shine::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 @keyframes lounge-float {
   0%,
   100% {

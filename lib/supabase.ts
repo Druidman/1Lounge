@@ -20,6 +20,10 @@ export function getSupabase(): SupabaseClient {
       auth: {
         persistSession: true,
         autoRefreshToken: true,
+        // OAuth (Azure) returns `?code=` to /callback; the client exchanges it
+        // on init using the verifier it stored before the redirect.
+        flowType: "pkce",
+        detectSessionInUrl: true,
       },
     });
   }
